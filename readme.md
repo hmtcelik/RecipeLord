@@ -1,6 +1,6 @@
 # Recipe Lord
 
-Recipe Lord is app which have very cool recipies from cool users
+Recipe Lord is app which have very cool recipies from very cool users
 
 >processing...
 
