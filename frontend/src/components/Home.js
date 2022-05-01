@@ -47,8 +47,9 @@ const Home = () => {
 
         {/* Recipe List */}
         {isPending && <Row><p style={{marginTop:"20px"}}>Loading...</p></Row> }
-        {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes}/>}
-
+        {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes} />}
+        {!recipes.length && <Row><p>Wow! Such an empty</p></Row> }
+        
       </Container>
   );
 }
