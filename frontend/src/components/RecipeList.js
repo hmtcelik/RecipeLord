@@ -8,7 +8,7 @@ const RecipeList = (props) => {
                     <div className="recipe-title">
                         { recipe.title }
                     </div>
-                    <div className="recipe-title">
+                    <div className="recipe-description">
                         { recipe.description }
                     </div>
                 </div>

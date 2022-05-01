@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { Button, Container, Row } from "reactstrap";
@@ -6,29 +7,45 @@ import { Button, Container, Row } from "reactstrap";
 import RecipeList from "./RecipeList";
 
 const Home = () => {
-  const [recipes , setRecipes] = useState([]);
+  const [recipes , setRecipes] = useState([{}]);
+  const [isPending, setIsPending] = useState(true);
+  
+  useEffect(() => { /* for first render */
+      axios
+        .get('/api/recipes')
+        .then(res => {
+          setIsPending(false);
+          setRecipes(res.data);
+        })
+        .catch(err => console.log(err));
+  }, [])
 
-  const refreshList = () => {
+  const refreshList = () =>{ /* other get requests */
+    setIsPending(true)
     axios
-      .get("/api/recipes/")
-      .then((res) => setRecipes(res.data))
-      .catch((err) => console.log(err));
+    .get('/api/recipes')
+    .then(res => {
+      setIsPending(false);
+      setRecipes(res.data);
+    })
+    .catch(err => console.log(err));
   };
 
   return (
-    <div className="Home">
-      {refreshList()}
       <Container>
+
+        {/* Create Button*/}
         <Row style={{display:"block", marginTop:"20px"}}>
-          <div className="create-btn">
-              <Button color="succes" >Create Recipe</Button>
-          </div>        
+            <Link to="/create"><Button color="succes">New Recipe</Button></Link>
         </Row>
-        <Row>
+
+        {/* Recipe List */}
+        {isPending && <Row><p style={{marginTop:"20px"}}>Loading...</p></Row> }
+        {!isPending && <Row>
           <RecipeList recipes={recipes} />
-        </Row>
+        </Row>}
+
       </Container>
-    </div>
   );
 }
  

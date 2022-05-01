@@ -19,6 +19,10 @@ body{
     color: #212529;
 }
 
+.content{
+    margin-top: 20px;
+}
+
 .recipe-wrapper{
     margin-top: 20px;
 }
@@ -26,6 +30,12 @@ body{
 .navbar{
     font-weight: 900;
     padding: 15px 15px;
+}
+
+.create-btn{
+    color: white;
+    background-color:#f1356d;
+    border-radius: 8px;
 }
 
 .create-btn-wrapper{
