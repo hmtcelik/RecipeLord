@@ -10,6 +10,9 @@ const Home = () => {
   const [recipes , setRecipes] = useState([{}]);
   const [isPending, setIsPending] = useState(true);
   
+  // creating successful message
+  const [succesMsg, setSuccesMsg] = useState(false);
+
   useEffect(() => { /* for first render */
       axios
         .get('/api/recipes')
@@ -39,11 +42,12 @@ const Home = () => {
             <Link to="/create"><Button color="succes">New Recipe</Button></Link>
         </Row>
 
+        {/* Succes Mesage*/}
+        {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
+
         {/* Recipe List */}
         {isPending && <Row><p style={{marginTop:"20px"}}>Loading...</p></Row> }
-        {!isPending && <Row>
-          <RecipeList recipes={recipes} />
-        </Row>}
+        {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes}/>}
 
       </Container>
   );

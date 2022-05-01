@@ -8,7 +8,8 @@ import axios from "axios";
 import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstrap";
 
 //set states and functions
-import refreshList from "./Home.js";
+import refreshList from "./Home";
+import setSuccesMsg from "./Home";
 
 const CreateRecipe = () => {
     //for form elements
@@ -24,7 +25,7 @@ const CreateRecipe = () => {
       const recipe = { title: title, description: description};
       axios
         .post("/api/recipes/", recipe)
-        .then(() => refreshList());
+        .then((res) => refreshList());
       navigate('/');
     };
 
