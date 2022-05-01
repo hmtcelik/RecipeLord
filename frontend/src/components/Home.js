@@ -21,7 +21,7 @@ const Home = () => {
           setRecipes(res.data);
         })
         .catch(err => console.log(err));
-  }, [])
+  }, []);
 
   const refreshList = () =>{ /* other get requests */
     setIsPending(true)
