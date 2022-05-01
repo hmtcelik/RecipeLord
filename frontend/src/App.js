@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 
-function App() {
+import Home from "./components/Home.js";
+import Header from "./components/Header.js";
+
+import './main.scss';
+
+
+export const App = () => {
   return (
     <div className="App">
-        <p>hello world</p>
+      <Header />
+      <Home />
     </div>
   );
 }

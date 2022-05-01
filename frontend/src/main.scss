@@ -1,0 +1,42 @@
+$info: #2780e3;
+$navbar-light-color: white;
+$navbar-light-hover-color: rgb(224, 224, 224);
+$navbar-light-active-color: rgb(224, 224, 224);
+$navbar-light-brand-hover-color: white; 
+$navbar-light-brand-color: white;
+
+// @import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/bootstrap";
+
+
+$web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" !default;
+@if $web-font-path {
+  @import url($web-font-path);
+}
+
+body{
+    color: #212529;
+}
+
+.recipe-wrapper{
+    margin-top: 20px;
+}
+
+.navbar{
+    font-weight: 900;
+    padding: 15px 15px;
+}
+
+.create-btn-wrapper{
+    text-align: right;
+    margin-top: 20px;
+}
+
+.btn-succes{
+    background-color: green;
+    color: white;
+}
+.btn:hover{
+    color:white;
+}
