@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Button, Row } from "reactstrap";
 
 //states and functions
 import refreshList from "./Home";
-import UpdateRecipe from "./UpdateRecipe";
 
 const RecipeList = (props) => {
     const recipes = props.recipes;
@@ -15,8 +14,6 @@ const RecipeList = (props) => {
     // r you sure? on delete
     const [youSure, setYouSure] = useState(false);
     
-    const navigate = useNavigate();
-
     const handleDelete = (id) => {
       //deleting DOM
       const newRecipes = recipes.filter(recipe => recipe.id !== id);

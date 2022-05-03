@@ -9,7 +9,6 @@ import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstra
 
 //set states and functions
 import refreshList from "./Home";
-import setSuccesMsg from "./Home";
 
 const CreateRecipe = () => {
     //for form elements
