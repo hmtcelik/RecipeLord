@@ -15,6 +15,9 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700
   @import url($web-font-path);
 }
 
+//my variables
+$navbar-color: #2780e3;
+
 body{
     color: #212529;
 }
@@ -108,4 +111,22 @@ body{
     .sure-box-card{
         width: 250px;
     }
+}
+
+
+// loader
+.loader {
+    margin: 0 auto;
+    display: inline;
+    margin-top: 20px;
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid $navbar-color;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+}  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

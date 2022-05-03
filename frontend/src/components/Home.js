@@ -46,7 +46,7 @@ const Home = () => {
         {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
 
         {/* Recipe List */}
-        {isPending && <Row><p style={{marginTop:"20px"}}>Loading...</p></Row> }
+        {isPending && <Row><div className="loader"></div></Row> }
         {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes} />}
         {!recipes.length && <Row><p>Wow! Such an empty</p></Row> }
         
