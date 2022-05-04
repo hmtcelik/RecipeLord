@@ -35,7 +35,8 @@ const Home = () => {
   };
 
   return (
-      <Container>
+    <Container style={{display:'flex', justifyContent:"center"}}>
+      <div className="home"> {/* for container */}
 
         {/* Create Button*/}
         <Row style={{display:"block", marginTop:"20px"}}>
@@ -49,8 +50,9 @@ const Home = () => {
         {isPending && <Row><div className="loader"></div></Row> }
         {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes} />}
         {!recipes.length && <Row><p>Wow! Such an empty</p></Row> }
-        
-      </Container>
+    
+      </div>
+    </Container>
   );
 }
  

@@ -10,7 +10,7 @@ $navbar-light-brand-color: white;
 @import "~bootstrap/scss/bootstrap";
 
 
-$web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" !default;
+$web-font-path: "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&" !default;
 @if $web-font-path {
   @import url($web-font-path);
 }
@@ -26,14 +26,39 @@ body{
     margin-top: 20px;
 }
 
-.recipe-wrapper{
-    margin-top: 50px;
+.home{
+    margin-bottom: 40px;
 }
 
 .navbar{
     font-weight: 900;
-    padding: 15px 15px;
+    padding: 17px 17px;
 }
+
+$recipe_wrapper_lines : rgba(0, 0, 0, 0.526);
+//recipe list
+.recipe{
+    .wrapper{
+        margin: 0 auto;
+        margin-top: 20px;
+        border: 2px solid $recipe_wrapper_lines;
+        border-radius: 10px;
+        box-shadow: $recipe_wrapper_lines 5px 5px;
+        padding: 20px 20px;
+        width: 600px;
+        max-width: 600px;
+        height: 250px;
+        max-height: 250px;
+
+    }
+    .title{
+        margin-top: 0px;
+    }
+    .description{
+        margin-top: 0px;
+    }
+}
+
 
 .create-btn{
     color: white;
