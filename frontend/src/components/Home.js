@@ -4,6 +4,9 @@ import axios from "axios";
 
 import { Button, Container, Row } from "reactstrap";
 
+//react animation
+import { useSpring, animated } from 'react-spring'
+
 import RecipeList from "./RecipeList";
 
 const Home = () => {
@@ -12,6 +15,9 @@ const Home = () => {
   
   // creating successful message
   const [succesMsg, setSuccesMsg] = useState(false);
+  
+  // react-strip stuffs
+  const springProps = useSpring({ from:{ opacity:0 }, to:{ opacity:1 }, delay: 200, });
 
   useEffect(() => { /* for first render */
       axios
@@ -35,22 +41,25 @@ const Home = () => {
   };
 
   return (
-    <Container style={{display:'flex', justifyContent:"center"}}>
+    <Container>
       <div className="home"> {/* for container */}
 
         {/* Create Button*/}
-        <Row style={{display:"block", marginTop:"20px"}}>
+        <Row style={{displaymarginTop:"20px"}}>
             <Link to="/create"><Button color="succes">New Recipe</Button></Link>
         </Row>
+
 
         {/* Succes Mesage*/}
         {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
 
-        {/* Recipe List */}
-        {isPending && <Row><div className="loader"></div></Row> }
-        {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes} />}
-        {!recipes.length && <Row><p>Wow! Such an empty</p></Row> }
-    
+        <animated.div style={springProps}>
+          {/* Recipe List */}
+          {isPending && <Row><div className="loader"></div></Row> }
+          {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes} />}
+          {!recipes.length && <Row><p>Wow! Such an empty</p></Row> }
+        </animated.div>
+
       </div>
     </Container>
   );
