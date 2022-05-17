@@ -40,18 +40,32 @@ const Home = () => {
     .catch(err => console.log(err));
   };
 
+  const [pizzas, setPizzas ] = useState([
+    {
+      name:"peperoni",
+      id: 1
+    }
+  ]);
+  
+  const [id, setId] = useState(2)
+
   const reducer = (state, action) => {
+    const newPizzas = pizzas.slice();
     switch(action.type){
-      case "increase":
-        return state + 1;
-      case "decrease":
-        return state - 1;
+      case "peperoni":
+          newPizzas.push({name:"peperoni", id:(id)})
+          setId(id+1);
+        return setPizzas(newPizzas);
+      case "ananas":
+        newPizzas.push({name:"ananas", id:(id)})
+        setId(id+1);
+        return setPizzas(newPizzas);
       default:
         return state;
     }
   }
   
-  const [state, dispatch] = useReducer(reducer, 0);
+  const [state, dispatch] = useReducer(reducer, pizzas);
     
   return (
     <Container>
@@ -62,9 +76,14 @@ const Home = () => {
             <Link to="/create"><Button color="succes">New Recipe</Button></Link>
         </Row>
 
-        <p>count: {state}</p>
-        <Button onClick={() => dispatch({ type:"increase" })}> + </Button>
-        <Button onClick={() => dispatch({ type:"decrease" })}> - </Button>
+        {pizzas.map(pizza => (
+          <div key={pizza.id}>
+          {pizza.name}  {pizza.id}
+          </div>
+        ))}
+
+        <Button onClick={() => dispatch({ type:"peperoni" })}> peperoni </Button>
+        <Button onClick={() => dispatch({ type:"ananas" })}> ananas </Button>
 
         {/* Succes Mesage*/}
         {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
