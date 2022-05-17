@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -40,6 +40,19 @@ const Home = () => {
     .catch(err => console.log(err));
   };
 
+  const reducer = (state, action) => {
+    switch(action.type){
+      case "increase":
+        return state + 1;
+      case "decrease":
+        return state - 1;
+      default:
+        return state;
+    }
+  }
+  
+  const [state, dispatch] = useReducer(reducer, 0);
+    
   return (
     <Container>
       <div className="home"> {/* for container */}
@@ -49,6 +62,9 @@ const Home = () => {
             <Link to="/create"><Button color="succes">New Recipe</Button></Link>
         </Row>
 
+        <p>count: {state}</p>
+        <Button onClick={() => dispatch({ type:"increase" })}> + </Button>
+        <Button onClick={() => dispatch({ type:"decrease" })}> - </Button>
 
         {/* Succes Mesage*/}
         {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
