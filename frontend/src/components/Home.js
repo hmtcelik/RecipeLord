@@ -11,6 +11,7 @@ import RecipeList from "./RecipeList";
 
 const Home = () => {
   const [recipes , setRecipes] = useState([{}]);
+  const [ingredients, setIngredients] = useState([{}]);
   const [isPending, setIsPending] = useState(true);
   
   // creating successful message
@@ -78,12 +79,12 @@ const Home = () => {
 
         {pizzas.map(pizza => (
           <div key={pizza.id}>
-          {pizza.name}  {pizza.id}
+          {pizza.name}
           </div>
         ))}
 
-        <Button onClick={() => dispatch({ type:"peperoni" })}> peperoni </Button>
-        <Button onClick={() => dispatch({ type:"ananas" })}> ananas </Button>
+        <Button onClick={() => dispatch({ type:"peperoni" })}>add peperoni </Button>
+        <Button onClick={() => dispatch({ type:"ananas" })}>add ananas </Button>
 
         {/* Succes Mesage*/}
         {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
@@ -91,7 +92,7 @@ const Home = () => {
         <animated.div style={springProps}>
           {/* Recipe List */}
           {isPending && <Row><div className="loader"></div></Row> }
-          {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes} />}
+          {!isPending && <RecipeList recipes={recipes} setRecipes={setRecipes}/>}
           {!recipes.length && <Row><p>Wow! Such an empty</p></Row> }
         </animated.div>
 

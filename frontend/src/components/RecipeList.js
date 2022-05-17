@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import { Button, Row } from "reactstrap";
 
+import Ingredients from "./IngredientsList";
+
 //states and functions
 import refreshList from "./Home";
 
@@ -38,12 +40,16 @@ const RecipeList = (props) => {
               <div className="recipe">
                 <div className="recipe wrapper">
                   <div className="recipe title">
-                  { recipe.title }
+                    { recipe.title }
                   </div>
                   <div className="recipe description">
                     { recipe.description }
                   </div>
 
+                  <br />
+                  <h5>ingredients</h5>
+                  <Ingredients recipeId={recipe.id}/>
+                        
                   {/* Edit Recipe */}
                   <Link to={`/update/${recipe.id}`}><Button>Edit</Button></Link>
                 
@@ -51,7 +57,7 @@ const RecipeList = (props) => {
                   {'\u00A0'}{'\u00A0'}
 
                   {/* Delete Recipe*/}
-                  <Button value={recipe.id} onClick={() => {setYouSure(true); setRecipeId(recipe.id);}} color="danger">Delete</Button>
+                  <Button onClick={() => {setYouSure(true); setRecipeId(recipe.id);}} color="danger">Delete</Button>
                 </div>
               </div>
             </Row>
@@ -72,5 +78,5 @@ const RecipeList = (props) => {
       </div>
     );
 }
- 
+
 export default RecipeList;
