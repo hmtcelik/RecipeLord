@@ -12,7 +12,7 @@ const RecipeList = (props) => {
     const setRecipes = props.setRecipes;
     
     // for finding id on deleting
-    const refDelete = React.createRef();
+    const [recipeid, setRecipeId] = useState(0);
 
     // r you sure? on delete
     const [youSure, setYouSure] = useState(false);
@@ -20,14 +20,15 @@ const RecipeList = (props) => {
     const handleDelete = (id) => {
       console.log(id);
       setYouSure(false);
-      //deleting DOM
-      // const newRecipes = recipes.filter(recipe => recipe.id !== id);
-      // setRecipes(newRecipes);
+      
+      //deleting on DOM
+      const newRecipes = recipes.filter(recipe => recipe.id !== id);
+      setRecipes(newRecipes);
 
-      // //delete request with API
-      // axios
-      //   .delete(`/api/recipes/${id}`)
-      //   .then((res) => refreshList());
+      //delete request with API
+      axios
+        .delete(`/api/recipes/${id}`)
+        .then((res) => refreshList());
     }
 
     return (  
@@ -50,7 +51,7 @@ const RecipeList = (props) => {
                   {'\u00A0'}{'\u00A0'}
 
                   {/* Delete Recipe*/}
-                  <Button ref={refDelete} value={recipe.id} onClick={() => setYouSure(true)} color="danger">Delete</Button>
+                  <Button value={recipe.id} onClick={() => {setYouSure(true); setRecipeId(recipe.id);}} color="danger">Delete</Button>
                 </div>
               </div>
             </Row>
@@ -63,12 +64,11 @@ const RecipeList = (props) => {
                       <div className="sure-box-info">
                         <p>Are you sure about this?</p>
                       </div>
-                      <Button onClick={() => handleDelete(refDelete.current)} color="danger">Delete</Button>
+                      <Button onClick={() => handleDelete(recipeid)} color="danger">Delete</Button>
                     </div>
                   </div>
                 </div>
                 }
-
       </div>
     );
 }
