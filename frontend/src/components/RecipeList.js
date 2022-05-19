@@ -20,7 +20,6 @@ const RecipeList = (props) => {
     const [youSure, setYouSure] = useState(false);
 
     const handleDelete = (id) => {
-      console.log(id);
       setYouSure(false);
       
       //deleting on DOM
@@ -47,7 +46,7 @@ const RecipeList = (props) => {
                   </div>
 
                   <br />
-                  <h5>ingredients</h5>
+                  <h5>ingredissents</h5>
                   <Ingredients recipeId={recipe.id}/>
                         
                   {/* Edit Recipe */}

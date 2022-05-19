@@ -11,7 +11,6 @@ import RecipeList from "./RecipeList";
 
 const Home = () => {
   const [recipes , setRecipes] = useState([{}]);
-  const [ingredients, setIngredients] = useState([{}]);
   const [isPending, setIsPending] = useState(true);
   
   // creating successful message
@@ -82,7 +81,6 @@ const Home = () => {
           {pizza.name}
           </div>
         ))}
-
         <Button onClick={() => dispatch({ type:"peperoni" })}>add peperoni </Button>
         <Button onClick={() => dispatch({ type:"ananas" })}>add ananas </Button>
 
