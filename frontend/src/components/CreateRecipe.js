@@ -14,7 +14,7 @@ const CreateRecipe = () => {
     //for form elements
     const [recipeName, setRecipeName] = useState('');
     const [recipeDesc, setRecipeDesc] = useState('');
-    const [recipeId, setRecipeId] = useState('');
+    var recipe_id = 0; // inital value
 
     //for adding ingredients
     const [showAddIngredient, setShowAddIngredient ] = useState(false); //for checking render
@@ -39,13 +39,30 @@ const CreateRecipe = () => {
       setIngredientName('');
     }
 
+    function delay(time) {
+      return new Promise(resolve => setTimeout(resolve, time));
+    }
+    
     //submiting form
     const handleSubmit = (e) => {
       e.preventDefault();
+      //firstly posting Recipe
       const recipe = { title: recipeName, description: recipeDesc};
       axios
         .post("/api/recipes/", recipe)
-        .then((res) => refreshList());
+        .then((res) => {
+          // after creating recipe,  posting ingredients
+          recipe_id = (res.data.id); // getting recipe_id from post request response data
+          console.log(ingredientsList.length);
+          for(let i=0; i<ingredientsList.length;i++){
+            const ingredient = { title: ingredientsList[i].title, recipe: recipe_id}          
+            axios
+              .post("/api/recipeingredients/", ingredient)
+              .then((res)=>{
+                console.log(res.data);
+              });
+          }
+        });
       navigate('/');
     };
 
