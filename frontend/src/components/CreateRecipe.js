@@ -53,18 +53,26 @@ const CreateRecipe = () => {
         .then((res) => {
           // after creating recipe,  posting ingredients
           recipe_id = (res.data.id); // getting recipe_id from post request response data
-          console.log(ingredientsList.length);
-          for(let i=0; i<ingredientsList.length;i++){
-            const ingredient = { title: ingredientsList[i].title, recipe: recipe_id}          
-            axios
-              .post("/api/recipeingredients/", ingredient)
-              .then((res)=>{
-                console.log(res.data);
-              });
-          }
+          ingredientCreation();          
         });
-      navigate('/');
     };
+
+    let i = 0;
+    const ingredientCreation = () =>{
+        const ingredient = { title: ingredientsList[i].title, recipe: recipe_id}          
+        axios
+          .post("/api/recipeingredients/", ingredient)
+          .then((res)=>{
+            console.log(res.data);
+            i++;
+            if (ingredientsList.length === i){
+              return (navigate('/'));
+            }
+            else{
+              ingredientCreation();
+            }
+          });
+      }
 
     return (
         <React.Fragment>
