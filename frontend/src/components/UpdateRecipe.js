@@ -7,9 +7,6 @@ import axios from "axios";
 //botstrap elements
 import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstrap";
 
-//set states and functions
-import refreshList from "./Home";
-
 const UpdateRecipe = () => {
   const id = useParams();
   
@@ -41,7 +38,6 @@ const UpdateRecipe = () => {
   const handleSubmit = (e) =>{
     axios
     .put(`/api/recipes/${id.id}/`, recipe)
-    .then((res) => refreshList());
     navigate('/');
   };
   
@@ -64,7 +60,7 @@ const UpdateRecipe = () => {
                   <Label>Description</Label>
                   <Input type="text" value={recipe.description} name="description" required onChange={handleChange}/>
                 </FormGroup>
-                <Link to="/"><Button>Cancel</Button></Link> {'\u00A0'}{'\u00A0'} 
+                <Link to="/"><Button>Cancel</Button></Link> {'\u00A0'}
                 <Button type="submit" color="succes">Update</Button>
               </Form>
              }

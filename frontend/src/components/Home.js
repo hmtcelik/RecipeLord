@@ -29,60 +29,15 @@ const Home = () => {
         .catch(err => console.log(err));
   }, []);
 
-  const refreshList = () =>{ /* other get requests */
-    setIsPending(true)
-    axios
-    .get('/api/recipes')
-    .then(res => {
-      setIsPending(false);
-      setRecipes(res.data);
-    })
-    .catch(err => console.log(err));
-  };
-
-  const [pizzas, setPizzas ] = useState([
-    {
-      name:"peperoni",
-      id: 1
-    }
-  ]);
-  
-  const [id, setId] = useState(2)
-
-  const reducer = (state, action) => {
-    const newPizzas = pizzas.slice();
-    switch(action.type){
-      case "peperoni":
-          newPizzas.push({name:"peperoni", id:(id)})
-          setId(id+1);
-        return setPizzas(newPizzas);
-      case "ananas":
-        newPizzas.push({name:"ananas", id:(id)})
-        setId(id+1);
-        return setPizzas(newPizzas);
-      default:
-        return state;
-    }
-  }
-  
-  const [state, dispatch] = useReducer(reducer, pizzas);
-    
   return (
     <Container>
       <div className="home"> {/* for container */}
 
         {/* Create Button*/}
         <Row style={{displaymarginTop:"20px"}}>
-            <Link to="/create"><Button color="succes">New Recipe</Button></Link>
+            <Link to="/create"><Button color="succes">New Recipe</Button></Link> {'\u00A0'}{'\u00A0'}
+            <Link to="/register"><Button color="succes">Sign Up</Button></Link>
         </Row>
-
-        {pizzas.map(pizza => (
-          <div key={pizza.id}>
-          {pizza.name}
-          </div>
-        ))}
-        <Button onClick={() => dispatch({ type:"peperoni" })}>add peperoni </Button>
-        <Button onClick={() => dispatch({ type:"ananas" })}>add ananas </Button>
 
         {/* Succes Mesage*/}
         {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}

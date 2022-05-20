@@ -6,9 +6,6 @@ import { Button, Row } from "reactstrap";
 
 import Ingredients from "./IngredientsList";
 
-//states and functions
-import refreshList from "./Home";
-
 const RecipeList = (props) => {
     const recipes = props.recipes;
     const setRecipes = props.setRecipes;
@@ -28,8 +25,7 @@ const RecipeList = (props) => {
 
       //delete request with API
       axios
-        .delete(`/api/recipes/${id}`)
-        .then((res) => refreshList());
+        .delete(`/api/recipes/${id}`);
     }
 
     return (  

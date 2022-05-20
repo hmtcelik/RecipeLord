@@ -7,9 +7,6 @@ import axios from "axios";
 //botstrap elements
 import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstrap";
 
-//set states and functions
-import refreshList from "./Home";
-
 const CreateRecipe = () => {
     //for form elements
     const [recipeName, setRecipeName] = useState('');
@@ -53,7 +50,11 @@ const CreateRecipe = () => {
         .then((res) => {
           // after creating recipe,  posting ingredients
           recipe_id = (res.data.id); // getting recipe_id from post request response data
-          ingredientCreation();          
+          if (ingredientsList.length >= 1)
+            ingredientCreation();
+          else{
+            return (navigate('/'));
+          }  
         });
     };
 
@@ -63,7 +64,6 @@ const CreateRecipe = () => {
         axios
           .post("/api/recipeingredients/", ingredient)
           .then((res)=>{
-            console.log(res.data);
             i++;
             if (ingredientsList.length === i){
               return (navigate('/'));
@@ -110,7 +110,7 @@ const CreateRecipe = () => {
               <br />
               <br />
               <br />
-              <Link to="/"><Button>Cancel</Button></Link>  {'\u00A0'}{'\u00A0'}
+              <Link to="/"><Button>Cancel</Button></Link>  {'\u00A0'}
               <Button type="submit" color="succes">Create</Button>
             </Form>
           </Row>
