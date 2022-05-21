@@ -5,6 +5,10 @@ from . import views
 router = routers.DefaultRouter()
 router.register('recipes', views.RecipeView, 'recipe')
 router.register('recipeingredients', views.RecipeIngredientView, 'recipeingredient')
-router.register('user', views.UserView, 'user')
+router.register('register', views.UserView, 'register')
 
-urlpatterns = router.urls
+urlpatterns = [
+  path('login/', views.LoginView.as_view(), name='login'),
+]
+
+urlpatterns += router.urls

@@ -16,14 +16,49 @@ const CreateRecipe = () => {
     //for adding ingredients
     const [showAddIngredient, setShowAddIngredient ] = useState(false); //for checking render
     const [ingredientName, setIngredientName] = useState('');
-    const [ingredientsList, setIngredientsList] = useState([
-
-    ]);
-    const [tempId, setTempId] = useState(2);
+    const [ingredientsList, setIngredientsList] = useState([]);
+    
+    const [tempId, setTempId] = useState(1); //for creating ingredient on JUST DOM !!
 
     //for returning home page
     const navigate = useNavigate();
 
+    //submiting form
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      //firstly posting Recipe
+      const recipe = { title: recipeName, description: recipeDesc};
+      axios
+      .post("/api/recipes/", recipe)
+        .then((res) => {
+          // after creating recipe,  posting ingredients
+          recipe_id = (res.data.id); // getting recipe_id from post request response data
+          if (ingredientsList.length >= 1)
+          ingredientCreation();
+          else{
+            return (navigate('/'));
+          }  
+        });
+      };
+      
+    // on db
+    let i = 0;
+    const ingredientCreation = () =>{
+      const ingredient = { title: ingredientsList[i].title, recipe: recipe_id}          
+      axios
+      .post("/api/recipeingredients/", ingredient)
+      .then((res)=>{
+            i++;
+            if (ingredientsList.length === i){
+              return (navigate('/'));
+            }
+            else{
+              ingredientCreation();
+            }
+          });
+        }
+        
+    //on DOM
     const addIngredient = () => {
       //checking if name is empty
       // I do this because I cant use form inside another form (which of main form)
@@ -36,43 +71,11 @@ const CreateRecipe = () => {
       setIngredientName('');
     }
 
-    function delay(time) {
-      return new Promise(resolve => setTimeout(resolve, time));
+    //on DOM
+    const deleteIngredient = (id) =>{
+      const newIngredients = ingredientsList.filter(ingredient => ingredient.id !== id);
+      setIngredientsList(newIngredients);
     }
-    
-    //submiting form
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      //firstly posting Recipe
-      const recipe = { title: recipeName, description: recipeDesc};
-      axios
-        .post("/api/recipes/", recipe)
-        .then((res) => {
-          // after creating recipe,  posting ingredients
-          recipe_id = (res.data.id); // getting recipe_id from post request response data
-          if (ingredientsList.length >= 1)
-            ingredientCreation();
-          else{
-            return (navigate('/'));
-          }  
-        });
-    };
-
-    let i = 0;
-    const ingredientCreation = () =>{
-        const ingredient = { title: ingredientsList[i].title, recipe: recipe_id}          
-        axios
-          .post("/api/recipeingredients/", ingredient)
-          .then((res)=>{
-            i++;
-            if (ingredientsList.length === i){
-              return (navigate('/'));
-            }
-            else{
-              ingredientCreation();
-            }
-          });
-      }
 
     return (
         <React.Fragment>
@@ -89,24 +92,31 @@ const CreateRecipe = () => {
                 <Label>Recipe Description</Label>
                 <Input type="text" value={recipeDesc} required onChange={(e) => setRecipeDesc(e.target.value)}/>
               </FormGroup>
+
+              {/* displaying ingredients */}
               <br />
               <h4>Ingredients</h4>
               {ingredientsList.map(ingredient => (
                 <div key={ingredient.id}>
-                  <li>{ingredient.title}</li>
+                  <li style={{display:"inline-block", marginRight:"10px"}} >{ingredient.title}</li> 
+                  <Button type="button" onClick={()=>{deleteIngredient(ingredient.id);}} color="danger" style={{display:"inline-block"}}>x</Button>
                 </div>
               ))}
+
+              {/* adding ingredients */}
               {!showAddIngredient && <Button onClick={()=> setShowAddIngredient(true)} color="info">Add Ingredient</Button>}
               {showAddIngredient && 
               <div className="addIngredient">
                 <br/>
-                  <FormGroup>
-                    <Label>Ingredient Name</Label>
-                    <Input type="text" value={ingredientName} onChange={(e) => setIngredientName(e.target.value)}/>
+                  <FormGroup style={{display:"inline-block",marginRight:"10px"}}>
+                    <Input type="text" value={ingredientName} placeholder="(example: 3 egg) " onChange={(e) => setIngredientName(e.target.value)}/>
                   </FormGroup>
-                  <Button onClick={addIngredient} color="dark">+</Button>
+                    <Button type="button" onClick={addIngredient} color="dark" style={{display:"inline-block"}}>+</Button>
+                    <br />
+                    <Button type="button" onClick={()=>setShowAddIngredient(false)} color="info" >Close</Button>
               </div>
               }
+
               <br />
               <br />
               <br />

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Button, Row } from "reactstrap";
 
-import Ingredients from "./IngredientsList";
+import IngredientsList from "./IngredientsList";
 
 const RecipeList = (props) => {
     const recipes = props.recipes;
@@ -43,7 +43,7 @@ const RecipeList = (props) => {
 
                   <br />
                   <h5>ingredissents</h5>
-                  <Ingredients recipeId={recipe.id}/>
+                  <IngredientsList recipeId={recipe.id}/>
                         
                   {/* Edit Recipe */}
                   <Link to={`/update/${recipe.id}`}><Button>Edit</Button></Link>

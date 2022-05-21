@@ -18,8 +18,6 @@ const Register = () => {
   //errors
   const [passwordsNotMatch, setPasswordsNotMatch] = useState(false);
 
-
-  
   const handleSubmit = (e) =>{
     e.preventDefault();
     console.log(password1);
@@ -27,7 +25,7 @@ const Register = () => {
     if (password1 === password2){
       const user = { username: username, email: email, password:password1}
       axios
-      .post("/api/user/", user)
+      .post("/api/register/", user)
       .then((res) => {
         console.log(res.data);
       })
