@@ -29,6 +29,19 @@ const Home = () => {
         .catch(err => console.log(err));
   }, []);
 
+  const Logout = () =>{
+    axios.post('/api/logout/', null, {
+      headers:{
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`
+      }
+    })
+    .then(res=>{
+      console.log(res.data);
+      localStorage.clear();
+    });
+  };
+
   return (
     <Container>
       <div className="home"> {/* for container */}
@@ -37,7 +50,8 @@ const Home = () => {
         <Row style={{displaymarginTop:"20px"}}>
             <Link to="/create"><Button color="succes">New Recipe</Button></Link> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
             <Link to="/login"><Button color="succes">Login</Button></Link>{'\u00A0'}
-            <Link to="/register"><Button color="succes">Sign Up</Button></Link>
+            <Link to="/register"><Button color="succes">Sign Up</Button></Link>{'\u00A0'}
+            <Button onClick={()=> Logout()} color="succes">Logout</Button>
         </Row>
 
         {/* Succes Mesage*/}

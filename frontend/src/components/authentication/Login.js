@@ -18,12 +18,15 @@ const Register = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(password);
       const user = { username: username, password:password}
       axios
-      .post("/api/login/", user)
+      .post("/api/login/", user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
-        console.log(res.data);
+        localStorage.setItem("token",(res.data.token))
       })
       .catch((e) => console.log(e));
       
