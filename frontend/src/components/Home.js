@@ -35,7 +35,8 @@ const Home = () => {
 
         {/* Create Button*/}
         <Row style={{displaymarginTop:"20px"}}>
-            <Link to="/create"><Button color="succes">New Recipe</Button></Link> {'\u00A0'}{'\u00A0'}
+            <Link to="/create"><Button color="succes">New Recipe</Button></Link> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
+            <Link to="/login"><Button color="succes">Login</Button></Link>{'\u00A0'}
             <Link to="/register"><Button color="succes">Sign Up</Button></Link>
         </Row>
 

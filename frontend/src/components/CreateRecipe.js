@@ -104,7 +104,7 @@ const CreateRecipe = () => {
               ))}
 
               {/* adding ingredients */}
-              {!showAddIngredient && <Button onClick={()=> setShowAddIngredient(true)} color="info">Add Ingredient</Button>}
+              {!showAddIngredient && <Button onClick={()=> setShowAddIngredient(true)} color="info">+</Button>}
               {showAddIngredient && 
               <div className="addIngredient">
                 <br/>

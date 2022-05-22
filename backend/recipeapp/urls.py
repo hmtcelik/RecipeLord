@@ -1,14 +1,20 @@
 from django.urls import path, include
 from rest_framework import routers
-from . import views
+from . import views as my_views
 
+#django knox
+from knox import views as knox_views
+
+#router
 router = routers.DefaultRouter()
-router.register('recipes', views.RecipeView, 'recipe')
-router.register('recipeingredients', views.RecipeIngredientView, 'recipeingredient')
-router.register('register', views.UserView, 'register')
+router.register('recipes', my_views.RecipeView, 'recipe')
+router.register('recipeingredients', my_views.RecipeIngredientView, 'recipeingredient')
 
+#urls
 urlpatterns = [
-  path('login/', views.LoginView.as_view(), name='login'),
-]
+  path('register/', my_views.RegisterAPI.as_view(), name='register'),
+  path('login/', my_views.LoginAPI.as_view(), name='login'),
+  path('logout/', knox_views.LogoutView.as_view(), name='logout'),
+]  
 
 urlpatterns += router.urls

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
@@ -8,35 +8,28 @@ import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstra
 
 const Register = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [password, setPassword] = useState("");
 
   //for returning home page
   const navigate = useNavigate(); 
   
   //errors
-  const [passwordsNotMatch, setPasswordsNotMatch] = useState(false);
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    if (password1 === password2){
-      const user = { username: username, email: email, password:password1}
+    console.log(password);
+      const user = { username: username, password:password}
       axios
-      .post("/api/register/", user)
+      .post("/api/login/", user)
       .then((res) => {
         console.log(res.data);
       })
       .catch((e) => console.log(e));
       
       navigate('/');
-    }
-    else{
-      setPasswordsNotMatch(true)
-    }
-  };
+  }
   
-
   return (  
     <>
     <React.Fragment>
@@ -50,26 +43,21 @@ const Register = () => {
                 <Input type="text" value={username} required onChange={(e) => setUsername(e.target.value)}/>
               </FormGroup>
               <FormGroup>
-                <Label>Email</Label>
-                <Input type="email" value={email} required onChange={(e) => setEmail(e.target.value)}/>
-              </FormGroup>
-              <FormGroup>
                 <Label>Passoword</Label>
-                <Input type="password" value={password1} required onChange={(e) => setPassword1(e.target.value)}/>
+                <Input type="password" value={password} required onChange={(e) => setPassword(e.target.value)}/>
               </FormGroup>  
-              <FormGroup>
-                <Label>Passoword Again</Label>
-                <Input type="password" value={password2} required onChange={(e) => setPassword2(e.target.value)}/>
-              </FormGroup>
-              {passwordsNotMatch && <p style={{color:"tomato"}}>your passowords not match</p>}
+
+              {incorrectPassword && <p style={{color:"tomato"}}>your passowords not match</p>}
+              
               <Link to={"/"}><Button color="secondary">Cancel</Button></Link> {'\u00A0'}
-              <Button type="submit" color="succes">Sign Up</Button>
+              <Button type="submit" color="succes">Sign In</Button>
+          
           </Form>
           </Row>
         </Container>
     </React.Fragment>
     </>
   );
-}
+};
  
 export default Register;
