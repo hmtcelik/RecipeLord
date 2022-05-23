@@ -42,7 +42,7 @@ const RecipeList = (props) => {
                   </div>
 
                   <br />
-                  <h5>ingredissents</h5>
+                  <h5>Ingredients</h5>
                   <IngredientsList recipeId={recipe.id}/>
                         
                   {/* Edit Recipe */}

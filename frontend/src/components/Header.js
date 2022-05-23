@@ -1,10 +1,40 @@
+import React, { useState ,useEffect } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
 const Header = () => {
+  const navigate = useNavigate();
+  
+  const [signBtns, setSignBtns] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem("user_id")){
+      setSignBtns(false)
+    }
+    else{
+      setSignBtns(true);
+    }
+  },)
+
+  const Logout = () =>{
+    axios.post('/api/logout/', null, {
+      headers:{
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`
+      }
+    })
+    .then(res=>{
+      localStorage.clear();
+      setSignBtns(true);
+    });
+  };
+
   return (  
     <Navbar bg="info" expand="lg">
-      <Container>
+      <Container fluid>
         <Link to="/"><Navbar.Brand>Recipe Lord</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -19,6 +49,17 @@ const Header = () => {
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+            <Nav className="ml-auto">
+              {signBtns &&
+                <React.Fragment>
+                    <Nav.Link onClick={()=>navigate('/login')}>Login</Nav.Link>
+                    <Nav.Link onClick={()=>navigate('/register')}>Register</Nav.Link>
+                </React.Fragment>
+              }
+              {!signBtns &&
+               <Nav.Link onClick={()=>Logout()}>Logout</Nav.Link>
+              }
+            </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

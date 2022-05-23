@@ -19,10 +19,13 @@ class RecipeView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeSerializer
     queryset = Recipe.objects.all()
 
-
 class RecipeIngredientView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeIngredientSerializer
     queryset = RecipeIngredient.objects.all()
+
+class UserView(viewsets.ModelViewSet):
+    serializer_class = mySerializers.UserSerializer
+    queryset = User.objects.all() 
 
 # Register API
 class RegisterAPI(generics.GenericAPIView):
@@ -40,9 +43,21 @@ class RegisterAPI(generics.GenericAPIView):
 class LoginAPI(KnoxLoginView):
     permission_classes = (permissions.AllowAny,)
 
+    def get_post_response_data(self, request, token, instance):
+        UserSerializer = mySerializers.UserSerializer
+
+        data = {
+            'user': UserSerializer(user, context= self.get_context()).data,
+            'expiry': self.format_expiry_datetime(instance.expiry),
+            'token': token
+        }
+        
+        return data    
+
     def post(self, request, format=None):
+        global user
         serializer = AuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        login(request, user)
+        login(request, user)        
         return super(LoginAPI, self).post(request, format=None)

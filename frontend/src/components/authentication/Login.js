@@ -27,12 +27,14 @@ const Register = () => {
       })
       .then((res) => {
         localStorage.setItem("token",(res.data.token))
+        localStorage.setItem("user_id",(res.data.user.id))
+        localStorage.setItem("username",(res.data.user.username))
+        if (localStorage.getItem("token"))
+          navigate('/');
       })
-      .catch((e) => console.log(e));
-      
-      navigate('/');
+      .catch(e=>console.log(e));
   }
-  
+
   return (  
     <>
     <React.Fragment>

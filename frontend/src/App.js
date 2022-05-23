@@ -10,8 +10,8 @@ import Login from "./components/authentication/Login.js";
 
 import './main.scss';
 
-
 export const App = () => {
+  
   return (
     
     <BrowserRouter>

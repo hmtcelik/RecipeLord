@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -12,11 +12,9 @@ import RecipeList from "./RecipeList";
 const Home = () => {
   const [recipes , setRecipes] = useState([{}]);
   const [isPending, setIsPending] = useState(true);
-  
-  // creating successful message
-  const [succesMsg, setSuccesMsg] = useState(false);
-  
-  // react-strip stuffs
+  const [username, setUsername] = useState("");
+
+  // react-spring stuffs
   const springProps = useSpring({ from:{ opacity:0 }, to:{ opacity:1 }, delay: 200, });
 
   useEffect(() => { /* for first render */
@@ -27,20 +25,10 @@ const Home = () => {
           setRecipes(res.data);
         })
         .catch(err => console.log(err));
+
+        setUsername(localStorage.getItem("username"));
   }, []);
 
-  const Logout = () =>{
-    axios.post('/api/logout/', null, {
-      headers:{
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`
-      }
-    })
-    .then(res=>{
-      console.log(res.data);
-      localStorage.clear();
-    });
-  };
 
   return (
     <Container>
@@ -49,13 +37,9 @@ const Home = () => {
         {/* Create Button*/}
         <Row style={{displaymarginTop:"20px"}}>
             <Link to="/create"><Button color="succes">New Recipe</Button></Link> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
-            <Link to="/login"><Button color="succes">Login</Button></Link>{'\u00A0'}
-            <Link to="/register"><Button color="succes">Sign Up</Button></Link>{'\u00A0'}
-            <Button onClick={()=> Logout()} color="succes">Logout</Button>
         </Row>
 
-        {/* Succes Mesage*/}
-        {succesMsg && <Row><p color="green">Succesfully Created</p></Row>}
+        <p>hosgeldin {username}</p>
 
         <animated.div style={springProps}>
           {/* Recipe List */}
