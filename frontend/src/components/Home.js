@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState, } from "react";
+import React, { useEffect, useState, } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -11,8 +11,10 @@ import RecipeList from "./RecipeList";
 
 const Home = () => {
   const [recipes , setRecipes] = useState([{}]);
+
+  // check variable for using 'if' in JSX
   const [isPending, setIsPending] = useState(true);
-  const [username, setUsername] = useState("");
+
 
   // react-spring stuffs
   const springProps = useSpring({ from:{ opacity:0 }, to:{ opacity:1 }, delay: 200, });
@@ -25,10 +27,7 @@ const Home = () => {
           setRecipes(res.data);
         })
         .catch(err => console.log(err));
-
-        setUsername(localStorage.getItem("username"));
   }, []);
-
 
   return (
     <Container>
@@ -38,8 +37,6 @@ const Home = () => {
         <Row style={{displaymarginTop:"20px"}}>
             <Link to="/create"><Button color="succes">New Recipe</Button></Link> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
         </Row>
-
-        <p>hosgeldin {username}</p>
 
         <animated.div style={springProps}>
           {/* Recipe List */}

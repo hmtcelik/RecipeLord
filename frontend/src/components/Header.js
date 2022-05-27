@@ -1,5 +1,5 @@
 import React, { useState ,useEffect } from "react";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown, NavItem} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -11,7 +11,7 @@ const Header = () => {
   const [signBtns, setSignBtns] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem("user_id")){
+    if (localStorage.getItem("token")){
       setSignBtns(false)
     }
     else{
@@ -54,11 +54,12 @@ const Header = () => {
                 <React.Fragment>
                     <Nav.Link onClick={()=>navigate('/login')}>Login</Nav.Link>
                     <Nav.Link onClick={()=>navigate('/register')}>Register</Nav.Link>
-                </React.Fragment>
-              }
+                </React.Fragment>}
               {!signBtns &&
-               <Nav.Link onClick={()=>Logout()}>Logout</Nav.Link>
-              }
+              <React.Fragment>
+                <Nav.Link disabled>Hello {localStorage.getItem("username")}</Nav.Link>
+                <Nav.Link onClick={()=>Logout()}>Logout</Nav.Link>
+              </React.Fragment>}
             </Nav>
         </Navbar.Collapse>
       </Container>
