@@ -1,9 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
 class Recipe(models.Model):
+    owner = models.ForeignKey(User, related_name="recipes", on_delete=models.CASCADE, default=0)
     title = models.CharField(max_length=120)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

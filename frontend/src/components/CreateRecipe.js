@@ -27,7 +27,7 @@ const CreateRecipe = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       //firstly posting Recipe
-      const recipe = { title: recipeName, description: recipeDesc};
+      const recipe = { title: recipeName, description: recipeDesc, owner: localStorage.getItem("user_id")};
       axios
       .post("/api/recipes/", recipe)
         .then((res) => {
@@ -113,7 +113,7 @@ const CreateRecipe = () => {
                   </FormGroup>
                     <Button type="button" onClick={addIngredient} color="dark" style={{display:"inline-block"}}>+</Button>
                     <br />
-                    <Button type="button" onClick={()=>setShowAddIngredient(false)} color="info" >Close</Button>
+                    <Button type="button" onClick={()=>{setShowAddIngredient(false); setIngredientName("");}} color="info" >Close</Button>
               </div>
               }
 

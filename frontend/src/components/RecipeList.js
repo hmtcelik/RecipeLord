@@ -44,7 +44,9 @@ const RecipeList = (props) => {
                   <br />
                   <h5>Ingredients</h5>
                   <IngredientsList recipeId={recipe.id}/>
-                        
+                  
+                  <h3>Owner: {recipe.owner}</h3>
+
                   {/* Edit Recipe */}
                   <Link to={`/update/${recipe.id}`}><Button>Edit</Button></Link>
                 
