@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.response import Response
+
 from .models import Recipe, RecipeIngredient
 from django.contrib.auth.models import User
 
@@ -16,11 +18,10 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
         model = RecipeIngredient
         fields = "__all__"
 
-# User Serializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username',)
+        fields = ('id', 'username')
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):

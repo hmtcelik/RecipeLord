@@ -15,6 +15,8 @@ urlpatterns = [
   path('register/', my_views.RegisterAPI.as_view(), name='register'),
   path('login/', my_views.LoginAPI.as_view(), name='login'),
   path('logout/', knox_views.LogoutView.as_view(), name='logout'),
+  
+  path('user/', my_views.UserAPI.as_view(), name='user'),
 ]  
 
 urlpatterns += router.urls

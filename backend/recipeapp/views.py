@@ -18,14 +18,32 @@ from django.contrib.auth import login
 class RecipeView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeSerializer
     queryset = Recipe.objects.all()
+    
 
 class RecipeIngredientView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeIngredientSerializer
     queryset = RecipeIngredient.objects.all()
 
-class UserView(viewsets.ModelViewSet):
-    serializer_class = mySerializers.UserSerializer
-    queryset = User.objects.all() 
+class UserAPI(generics.GenericAPIView):
+    serializer_class = mySerializers.UserSerializer 
+    
+    def post(self, request):
+        try:
+            id = request.data['id']
+            user = User.objects.filter(id=id)
+            if user:                
+                return Response({
+                    "username": str(user[0]), 
+                })
+            else:
+                return Response({
+                    "404": "There is no user with this id", 
+                })
+                
+        except:
+            return Response({
+                "404":"Please input with 'id' paramater" 
+            })
 
 # Register API
 class RegisterAPI(generics.GenericAPIView):

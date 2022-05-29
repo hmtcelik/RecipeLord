@@ -16,6 +16,9 @@ const RecipeList = (props) => {
     // r you sure? on delete
     const [youSure, setYouSure] = useState(false);
 
+
+  
+
     const handleDelete = (id) => {
       setYouSure(false);
       
@@ -29,6 +32,7 @@ const RecipeList = (props) => {
     }
 
     return (  
+      <>
       <div className="recipe-list">
           {recipes.map(recipe => (
             <Row key={recipe.id}>
@@ -73,6 +77,7 @@ const RecipeList = (props) => {
                 </div>
                 }
       </div>
+      </>
     );
 }
 

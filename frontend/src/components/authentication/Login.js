@@ -32,7 +32,14 @@ const Register = () => {
         if (localStorage.getItem("token"))
           navigate('/');
       })
-      .catch(e=>console.log(e));
+      .catch(e=>{
+        console.log(e)
+        if (e){
+          setIncorrectPassword(true)
+          setUsername("")
+          setPassword("")
+        }
+      });
   }
 
   return (  
@@ -52,7 +59,7 @@ const Register = () => {
                 <Input type="password" value={password} required onChange={(e) => setPassword(e.target.value)}/>
               </FormGroup>  
 
-              {incorrectPassword && <p style={{color:"tomato"}}>your passowords not match</p>}
+              {incorrectPassword && <p style={{color:"tomato"}}><i>username or password is not true</i></p>}
               
               <Link to={"/"}><Button color="secondary">Cancel</Button></Link> {'\u00A0'}
               <Button type="submit" color="succes">Sign In</Button>
