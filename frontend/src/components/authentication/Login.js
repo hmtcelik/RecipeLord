@@ -62,7 +62,7 @@ const Register = () => {
               {incorrectPassword && <p style={{color:"tomato"}}><i>username or password is not true</i></p>}
               
               <Link to={"/"}><Button color="secondary">Cancel</Button></Link> {'\u00A0'}
-              <Button type="submit" color="succes">Sign In</Button>
+              <Button type="submit" color="success">Sign In</Button>
           
           </Form>
           </Row>

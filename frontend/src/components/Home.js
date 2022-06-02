@@ -52,14 +52,14 @@ const Home = () => {
 
         {/* Create Button*/}
         <Row style={{displaymarginTop:"20px"}}>
-            <Link to="/create"><Button color="succes">New Recipe</Button></Link>
+            <Link to="/create"><Button color="success">New Recipe</Button></Link>
         </Row>
         <br></br>
         <Row style={{displaymarginTop:"20px"}}>
-            {!showNewRecipes && <Button color="info" onClick={()=>showMyRecipes()}>Show My Recipes</Button>}
-            {showNewRecipes && <Button color="info" onClick={()=>closeMyRecipes()}>Close My Recipes</Button>}
-            {showNewRecipes && <RecipeList recipes={newrecipes} setRecipes={setNewRecipes}/>}
+            {!showNewRecipes && <Button color="primary" onClick={()=>showMyRecipes()}>Show My Recipes</Button>}
+            {showNewRecipes && <Button color="primary" onClick={()=>closeMyRecipes()}>Close My Recipes</Button>}
         </Row>
+            {showNewRecipes && <RecipeList recipes={newrecipes} setRecipes={setNewRecipes}/>}
 
         <animated.div style={springProps}>
           {!showNewRecipes &&

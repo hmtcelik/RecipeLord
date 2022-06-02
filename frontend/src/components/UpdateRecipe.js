@@ -61,7 +61,7 @@ const UpdateRecipe = () => {
                   <Input type="text" value={recipe.description} name="description" required onChange={handleChange}/>
                 </FormGroup>
                 <Link to="/"><Button>Cancel</Button></Link> {'\u00A0'}
-                <Button type="submit" color="succes">Update</Button>
+                <Button type="submit" color="success">Update</Button>
               </Form>
              }
           </Row>

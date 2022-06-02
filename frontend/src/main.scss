@@ -1,9 +1,5 @@
 $info: #2780e3;
-$navbar-light-color: white;
-$navbar-light-hover-color: rgb(224, 224, 224);
-$navbar-light-active-color: rgb(224, 224, 224);
-$navbar-light-brand-hover-color: white; 
-$navbar-light-brand-color: white;
+
 
 // @import "~bootstrap/scss/functions";
 // @import "~bootstrap/scss/variables";
@@ -37,51 +33,10 @@ body{
 }
 
 .navbar{
+    padding: 20px;
     font-weight: 900;
+    color: #212529;
 }
-
-$recipe_wrapper_lines : rgba(0, 0, 0, 0.526);
-//recipe list
-.recipe{
-    .wrapper{
-        margin: 0 auto;
-        margin-top: 20px;
-        border: 2px solid $recipe_wrapper_lines;
-        border-radius: 10px;
-        box-shadow: $recipe_wrapper_lines 5px 5px;
-        padding: 20px 20px;
-        width: 600px;
-        max-width: 600px;
-        max-height: 850px;
-    }
-    .title{
-        margin-top: 0px;
-    }
-    .description{
-        margin-top: 0px;
-    }
-}
-
-
-.create-btn{
-    color: white;
-    background-color:#f1356d;
-    border-radius: 8px;
-}
-
-.create-btn-wrapper{
-    text-align: right;
-    margin-top: 20px;
-}
-
-.btn-succes{
-    background-color: green;
-    color: white;
-}
-.btn:hover{
-    color:white;
-}
-
 
 .sure-box-container{
     z-index: 3;
@@ -140,29 +95,3 @@ $recipe_wrapper_lines : rgba(0, 0, 0, 0.526);
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-
-@media only screen and (max-width: 600px) {
-    .content{
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-    .sure-box-card{
-        width: 400px;
-    }
-    .container{
-        width: auto;
-    }
-}
-
-@media only screen and (max-width: 450px) {
-    .sure-box-card{
-        width: 250px;
-    }
-    .recipe{
-        .wrapper{
-            width: 300px;
-        }
-    }
-}
-

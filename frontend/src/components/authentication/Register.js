@@ -29,7 +29,7 @@ const Register = () => {
       })
       .catch((e) => console.log(e));
       
-      navigate('/');
+      navigate('/login');
     }
     else{
       setPasswordsNotMatch(true)

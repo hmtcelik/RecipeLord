@@ -121,7 +121,7 @@ const CreateRecipe = () => {
               <br />
               <br />
               <Link to="/"><Button>Cancel</Button></Link>  {'\u00A0'}
-              <Button type="submit" color="succes">Create</Button>
+              <Button type="submit" color="success">Create</Button>
             </Form>
           </Row>
         </Container>

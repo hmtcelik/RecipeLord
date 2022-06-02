@@ -1,15 +1,16 @@
 import React, { useState ,useEffect } from "react";
-import { Navbar, Container, Nav, NavDropdown, NavItem} from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Search from "./Search";
 
 const Header = () => {
   const navigate = useNavigate();
   
   const [signBtns, setSignBtns] = useState(true);
-
+  
   useEffect(() => {
     if (localStorage.getItem("token")){
       setSignBtns(false)
@@ -33,7 +34,7 @@ const Header = () => {
   };
 
   return (  
-    <Navbar bg="info" expand="lg">
+    <Navbar bg="light" expand="lg">
       <Container fluid>
         <Link to="/"><Navbar.Brand>Recipe Lord</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -49,18 +50,19 @@ const Header = () => {
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-            <Nav className="ml-auto">
-              {signBtns &&
-                <React.Fragment>
-                    <Nav.Link onClick={()=>navigate('/login')}>Login</Nav.Link>
-                    <Nav.Link onClick={()=>navigate('/register')}>Register</Nav.Link>
-                </React.Fragment>}
-              {!signBtns &&
+          <Search />
+          <Nav className="ml-auto">
+            {signBtns &&
               <React.Fragment>
-                <Nav.Link disabled>Hello {localStorage.getItem("username")}</Nav.Link>
-                <Nav.Link onClick={()=>Logout()}>Logout</Nav.Link>
+                <Nav.Link onClick={()=>navigate('/login')}>Login</Nav.Link>
+                <Nav.Link onClick={()=>navigate('/register')}>Register</Nav.Link>
               </React.Fragment>}
-            </Nav>
+            {!signBtns &&
+            <React.Fragment>
+              <Nav.Link disabled>Hello {localStorage.getItem("username")}</Nav.Link>
+              <Nav.Link onClick={()=>Logout()}>Logout</Nav.Link>
+            </React.Fragment>}
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

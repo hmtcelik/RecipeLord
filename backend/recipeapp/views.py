@@ -19,7 +19,6 @@ class RecipeView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeSerializer
     queryset = Recipe.objects.all()
     
-
 class RecipeIngredientView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeIngredientSerializer
     queryset = RecipeIngredient.objects.all()
@@ -44,7 +43,7 @@ class UserAPI(generics.GenericAPIView):
             return Response({
                 "404":"Please input with 'id' paramater" 
             })
-
+            
 # Register API
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = mySerializers.RegisterSerializer
