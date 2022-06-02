@@ -1,31 +1,20 @@
-$info: #2780e3;
-
-
 // @import "~bootstrap/scss/functions";
 // @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/bootstrap";
 
-
-$web-font-path: "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&" !default;
-@if $web-font-path {
-  @import url($web-font-path);
-}
-
 //my variables
-$navbar-color: #2780e3;
+$navbar-color: #f8f9fa;
 
 body{
-    color: #212529;
+  color: #212529;
+  font-family: 'Roboto', sans-serif;
 }
-
 .content{
     margin-top: 20px;
 }
-
 .home{
     margin-bottom: 40px;
 }
-
 .container{
     display:'flex';
     justify-content:"left";

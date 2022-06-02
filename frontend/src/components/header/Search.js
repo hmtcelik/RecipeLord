@@ -4,21 +4,19 @@ import { Form, Button } from "react-bootstrap";
 import { Input } from "reactstrap";
 
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
   const [item, setItem] = useState("");
-
+  
   const [results, setResults] = useState(false);
-
+  
+  const navigate = useNavigate();
+  
 
   const handleSearch = (e) =>{
     e.preventDefault();
-    axios
-    .get(`/api/recipes/${item}`)
-    .then(res=>{
-      console.log(res.data)
-      setResults(true)
-    });
+    navigate(`/results/${item}`)
   }
 
   return (
@@ -37,7 +35,7 @@ const Search = () => {
             required
             onChange={(e) => setItem(e.target.value)}
           />
-          <Button type="submit" variant="outline-success" >Search</Button>
+          <Button type="submit" variant="outline-success">Search</Button>
         </Form>
       }
     </>
