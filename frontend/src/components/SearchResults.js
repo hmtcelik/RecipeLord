@@ -12,6 +12,8 @@ const SearchResults = () => {
   //states
   const [recipe, setRecipe] = useState([]);
   const [error, setError] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(true);
+  const [pending, setPending] = useState(true);
 
   useEffect(() => { /* for first render */
     axios
@@ -19,11 +21,18 @@ const SearchResults = () => {
     .then(res=>{
       setRecipe(res.data)
       setError(false);
+      setPending(false);
     })
     .catch(e=>{
       console.log(e)
-      if(e){
+      if(e.message.includes("404")){
         setError(true);
+        setPending(false);
+        setErrorMessage("This recipe is not exist");
+      }
+      else if(e.message.includes("500")){
+        setError(false);
+        setPending(true);
       }
     });
   },)
@@ -35,10 +44,12 @@ const SearchResults = () => {
         <h1>Results:</h1>
       </Row>
       <Row>
-        {error &&
-          <p>this recipe is not exist</p>
+        {pending && <Row><div className="loader"></div></Row> }
+
+        {error && !pending &&
+          <p>{errorMessage}</p>
         }
-        {!error &&
+        {!error && !pending &&
           <div>
             <h4>{recipe.title}</h4>
             <p>{recipe.description}</p>
