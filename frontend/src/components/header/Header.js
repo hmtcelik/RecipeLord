@@ -30,6 +30,7 @@ const Header = (props) => {
     .then(res=>{
       localStorage.clear();
       setSignBtns(true);
+      navigate('/');
     });
   };
 

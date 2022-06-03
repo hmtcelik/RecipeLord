@@ -9,12 +9,13 @@ import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstra
 
 const CreateRecipe = () => {  
     const navigate = useNavigate();
-    const [loginCheck, setLoginCheck] = useState(false)
+    const [loginCheck, setLoginCheck] = useState(false);
 
     useEffect(()=>{
-      if (localStorage.getItem("token"))
+      if (localStorage.getItem("token")){
         setLoginCheck(true);
-      if (!loginCheck)
+      }
+      else
         navigate('/login');
     },[])
 
