@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Search from "./Search";
 
-const Header = () => {
+const Header = (props) => {
   const navigate = useNavigate();
   
   const [signBtns, setSignBtns] = useState(true);

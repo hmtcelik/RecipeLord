@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstrap";
 
-const Register = () => {
+const Register = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

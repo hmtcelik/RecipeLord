@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,17 @@ import axios from "axios";
 //botstrap elements
 import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstrap";
 
-const CreateRecipe = () => {
+const CreateRecipe = () => {  
+    const navigate = useNavigate();
+    const [loginCheck, setLoginCheck] = useState(false)
+
+    useEffect(()=>{
+      if (localStorage.getItem("token"))
+        setLoginCheck(true);
+      if (!loginCheck)
+        navigate('/login');
+    },[])
+
     //for form elements
     const [recipeName, setRecipeName] = useState('');
     const [recipeDesc, setRecipeDesc] = useState('');
@@ -19,9 +29,6 @@ const CreateRecipe = () => {
     const [ingredientsList, setIngredientsList] = useState([]);
     
     const [tempId, setTempId] = useState(1); //for creating ingredient on JUST DOM !!
-
-    //for returning home page
-    const navigate = useNavigate();
 
     //submiting form
     const handleSubmit = (e) => {
@@ -78,6 +85,8 @@ const CreateRecipe = () => {
     }
 
     return (
+      <>
+      {loginCheck &&
         <React.Fragment>
         <Container>
           <Row>
@@ -116,7 +125,6 @@ const CreateRecipe = () => {
                     <Button type="button" onClick={()=>{setShowAddIngredient(false); setIngredientName("");}} color="info" >Close</Button>
               </div>
               }
-
               <br />
               <br />
               <br />
@@ -126,6 +134,8 @@ const CreateRecipe = () => {
           </Row>
         </Container>
       </React.Fragment>
+      }
+      </>
     );
 }
  

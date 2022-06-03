@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home.js";
@@ -12,7 +12,6 @@ import SearchResults from "./components/SearchResults.js";
 import './main.scss';
 
 export const App = () => {
-  
   return (
       <BrowserRouter>
         <Header />
