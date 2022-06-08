@@ -14,8 +14,10 @@ const SearchResults = () => {
   const [error, setError] = useState(true);
   const [errorMessage, setErrorMessage] = useState(true);
   const [pending, setPending] = useState(true);
-  const [sendReq, setSendReq] = useState(true);
   const [tempID, setTempID] = useState(null);
+
+  console.log(id.id)
+  console.log(tempID)
 
   useEffect(() => { /* for first render */
     if(id.id!==tempID){
@@ -25,11 +27,11 @@ const SearchResults = () => {
         setRecipe(res.data)
         setError(false);
         setPending(false);
-        setSendReq(false);
         setTempID(id.id);
       })
       .catch(e=>{
         console.log(e)
+        setTempID(null);
         if(e.message.includes("404")){
           setError(true);
           setPending(false);
