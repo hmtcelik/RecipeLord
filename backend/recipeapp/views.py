@@ -1,5 +1,8 @@
+#django
+from django.http import JsonResponse
+
 #rest framework materials
-from rest_framework import viewsets, views, permissions, status, generics
+from rest_framework import viewsets, views, permissions, status, generics, serializers
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 
@@ -14,6 +17,7 @@ from django.contrib.auth.models import User
 
 #useful functions
 from django.contrib.auth import login
+
     
 class RecipeView(viewsets.ModelViewSet):
     serializer_class = mySerializers.RecipeSerializer
@@ -43,7 +47,25 @@ class UserAPI(generics.GenericAPIView):
             return Response({
                 "404":"Please input with 'id' paramater" 
             })
-            
+        
+class SearchRecipeView(generics.GenericAPIView):
+    serializer_class = mySerializers.RecipeSearchSerializer
+    
+    def post(self, request):
+        item = request.data['title']
+        search = Recipe.objects.filter(title__icontains = item).values()
+        search = list(search)
+        print(search)
+
+        if search:
+            return Response({
+            "recipes": search
+            })
+        else:
+            return Response({
+            "404": "There is no recipe with this title", 
+            })     
+        
 # Register API
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = mySerializers.RegisterSerializer
@@ -78,3 +100,4 @@ class LoginAPI(KnoxLoginView):
         user = serializer.validated_data['user']
         login(request, user)        
         return super(LoginAPI, self).post(request, format=None)
+    
