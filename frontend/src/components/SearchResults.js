@@ -8,34 +8,40 @@ import { Container, Row } from "reactstrap";
 
 const SearchResults = () => {
   const id = useParams();
-  
+
   //states
   const [recipe, setRecipe] = useState([]);
   const [error, setError] = useState(true);
   const [errorMessage, setErrorMessage] = useState(true);
   const [pending, setPending] = useState(true);
+  const [sendReq, setSendReq] = useState(true);
+  const [tempID, setTempID] = useState(null);
 
   useEffect(() => { /* for first render */
-    axios
-    .get(`/api/recipes/${id.id}`)
-    .then(res=>{
-      setRecipe(res.data)
-      setError(false);
-      setPending(false);
-    })
-    .catch(e=>{
-      console.log(e)
-      if(e.message.includes("404")){
-        setError(true);
-        setPending(false);
-        setErrorMessage("This recipe is not exist");
-      }
-      else if(e.message.includes("500")){
+    if(id.id!==tempID){
+      axios
+      .get(`/api/recipes/${id.id}`)
+      .then(res=>{
+        setRecipe(res.data)
         setError(false);
-        setPending(true);
-      }
-    });
-  },)
+        setPending(false);
+        setSendReq(false);
+        setTempID(id.id);
+      })
+      .catch(e=>{
+        console.log(e)
+        if(e.message.includes("404")){
+          setError(true);
+          setPending(false);
+          setErrorMessage("This recipe is not exist");
+        }
+        else if(e.message.includes("500")){
+          setError(false);
+          setPending(true);
+        }
+      });
+    }
+  },);
   
   return (  
     <>
@@ -57,7 +63,6 @@ const SearchResults = () => {
         }
       </Row>
     </Container>
-
     </>
   );
 }
