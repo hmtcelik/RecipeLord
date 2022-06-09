@@ -7,43 +7,44 @@ import axios from "axios";
 import { Container, Row } from "reactstrap";
 
 const SearchResults = () => {
-  const id = useParams();
-
+  let search = useParams();
+  search = search.item
+  
   //states
-  const [recipe, setRecipe] = useState([]);
+  const [recipes, setRecipes] = useState([{}]);
+  const [oldSearch, setOldSearch] = useState(null);
+
   const [error, setError] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [pending, setPending] = useState(true);
-  const [tempID, setTempID] = useState(null);
 
-  console.log(id.id)
-  console.log(tempID)
-
-  useEffect(() => { /* for first render */
-    if(id.id!==tempID){
+  useEffect(() =>{
+    if (oldSearch !== search){
+      let searched_item = {"title": search} 
       axios
-      .get(`/api/recipes/${id.id}`)
-      .then(res=>{
-        setRecipe(res.data)
-        setError(false);
-        setPending(false);
-        setTempID(id.id);
-      })
-      .catch(e=>{
-        console.log(e)
-        setTempID(null);
-        if(e.message.includes("404")){
-          setError(true);
-          setPending(false);
-          setErrorMessage("This recipe is not exist");
-        }
-        else if(e.message.includes("500")){
-          setError(false);
-          setPending(true);
-        }
-      });
+        .post('/api/search_recipe/', searched_item)
+        .then((res)=>{
+          if(res.data.results.includes("404")){
+            setError(true);
+            setErrorMessage("I think, there is no recipe like this")
+            setPending(false);
+            setOldSearch(null);
+          }
+          else{
+            setRecipes(res.data.results);
+            setOldSearch(search);
+            setError(false);
+            setPending(false);
+          }
+        })
+        .catch((err)=>{
+          if(err.message.includes("500")){
+            setPending(true);
+            // do; after a while, server error message will render 
+          }
+        })
     }
-  },);
+  },)
   
   return (  
     <>
@@ -51,19 +52,20 @@ const SearchResults = () => {
       <Row>
         <h1>Results:</h1>
       </Row>
-      <Row>
-        {pending && <Row><div className="loader"></div></Row> }
+ 
+      {pending && <Row><div className="loader"></div></Row> }
 
-        {error && !pending &&
-          <p>{errorMessage}</p>
-        }
-        {!error && !pending &&
-          <div>
-            <h4>{recipe.title}</h4>
-            <p>{recipe.description}</p>
-          </div>
-        }
-      </Row>
+      {error && !pending && <Row><p>{errorMessage}</p></Row>}
+
+      {!error && !pending &&
+        <div>
+          {recipes.map(recipe => (
+            <Row key={recipe.id}>
+              <li>{recipe.title}</li>
+            </Row>
+          ))}
+        </div>          
+      }
     </Container>
     </>
   );

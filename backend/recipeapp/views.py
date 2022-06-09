@@ -52,19 +52,23 @@ class SearchRecipeView(generics.GenericAPIView):
     serializer_class = mySerializers.RecipeSearchSerializer
     
     def post(self, request):
-        item = request.data['title']
-        search = Recipe.objects.filter(title__icontains = item).values()
-        search = list(search)
-        print(search)
+        try:
+            item = request.data['title']
+            search = Recipe.objects.filter(title__icontains = item).values()
+            search = list(search)
 
-        if search:
+            if search:
+                return Response({
+                "results": search
+                })
+            else:
+                return Response({
+                "results": "404 There is no recipe with this title", 
+                })
+        except:
             return Response({
-            "recipes": search
-            })
-        else:
-            return Response({
-            "404": "There is no recipe with this title", 
-            })     
+                "results": "Please input with 'title' paramater" 
+            })           
         
 # Register API
 class RegisterAPI(generics.GenericAPIView):

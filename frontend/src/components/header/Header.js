@@ -31,6 +31,12 @@ const Header = (props) => {
       localStorage.clear();
       setSignBtns(true);
       navigate('/');
+    })
+    .catch(e=>{
+      console.log(e)
+      localStorage.clear();
+      setSignBtns(true);
+      navigate('/');
     });
   };
 

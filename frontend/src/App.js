@@ -22,7 +22,7 @@ export const App = () => {
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/create' element={<CreateRecipe />} />
             <Route exact path='/update/:id' element={<UpdateRecipe />} />
-            <Route exact path='/results/:id' element={<SearchResults />} />               
+            <Route exact path='/results/:item' element={<SearchResults />} />               
           </Routes>
         </div>
       </BrowserRouter>

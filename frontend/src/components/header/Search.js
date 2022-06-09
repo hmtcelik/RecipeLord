@@ -13,8 +13,7 @@ const Search = () => {
   
   const handleSearch = (e) =>{
     e.preventDefault();
-    console.log(`/results/${item}`);
-    navigate(`/results/${item}`);
+    navigate(`/results/${item}`)
   }
 
   return (

@@ -63,7 +63,7 @@ const Register = () => {
               </FormGroup>
               {passwordsNotMatch && <p style={{color:"tomato"}}>your passowords not match</p>}
               <Link to={"/"}><Button color="secondary">Cancel</Button></Link> {'\u00A0'}
-              <Button type="submit" color="succes">Sign Up</Button>
+              <Button type="submit" color="success">Sign Up</Button>
           </Form>
           </Row>
         </Container>
