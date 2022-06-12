@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 class Recipe(models.Model):
     owner = models.ForeignKey(User, related_name="recipes", on_delete=models.CASCADE, default=0)
     title = models.CharField(max_length=120)
+    cover = models.ImageField(blank=True, null=True, upload_to ='uploads/') 
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

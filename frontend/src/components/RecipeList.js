@@ -16,9 +16,6 @@ const RecipeList = (props) => {
     // r you sure? on delete
     const [youSure, setYouSure] = useState(false);
 
-
-  
-
     const handleDelete = (id) => {
       setYouSure(false);
       

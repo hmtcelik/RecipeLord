@@ -11,8 +11,15 @@ $navbar-color: #f8f9fa;
 
 body{
   color: #212529;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Syne', sans-serif;
 }
+p{
+  font-size: 18px;
+}
+a{
+  font-size: 18px;
+}
+
 .content{
     margin-top: 20px;
 }
@@ -26,9 +33,22 @@ body{
 }
 
 .navbar{
-    padding: 20px;
+    padding: 36px;
     font-weight: 900;
     color: #212529;
+  .navbar-brand{
+    font-size: 26px;
+    font-weight: 900;
+  }
+  form{
+    min-width: 400px;
+    margin:  0 auto;
+  }
+  @media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }
 }
 
 .sure-box-container{

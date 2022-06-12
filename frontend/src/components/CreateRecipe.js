@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
+import FormData from 'form-data'
 
 //botstrap elements
 import { Container, Button, Row, Form, Input, FormGroup, Label } from "reactstrap";
@@ -22,6 +23,7 @@ const CreateRecipe = () => {
     //for form elements
     const [recipeName, setRecipeName] = useState('');
     const [recipeDesc, setRecipeDesc] = useState('');
+    const [recipeCover, setRecipeCover] = useState(null);
     var recipe_id = 0; // inital value
 
     //for adding ingredients
@@ -34,21 +36,30 @@ const CreateRecipe = () => {
     //submiting form
     const handleSubmit = (e) => {
       e.preventDefault();
-      //firstly posting Recipe
-      const recipe = { title: recipeName, description: recipeDesc, owner: localStorage.getItem("user_id")};
+      let recipe = new FormData();
+      recipe.append('title', recipeName);
+      recipe.append('cover', recipeCover, recipeCover.name);
+      recipe.append('description', recipeDesc);
+      recipe.append('owner', localStorage.getItem("user_id"));
       axios
-      .post("/api/recipes/", recipe)
+        .post("/api/recipes/", recipe, {
+          headers: {
+            'accept': 'application/json',
+            'Accept-Language': 'en-US,en;q=0.8',
+            'Content-Type': `multipart/form-data; boundary=${recipeCover._boundary}`,
+          }
+        })
         .then((res) => {
           // after creating recipe,  posting ingredients
           recipe_id = (res.data.id); // getting recipe_id from post request response data
+          console.log(res.data);
           if (ingredientsList.length >= 1)
-          ingredientCreation();
+            ingredientCreation();
           else{
             return (navigate('/'));
           }  
         });
       };
-      
     // on db
     let i = 0;
     const ingredientCreation = () =>{
@@ -97,10 +108,14 @@ const CreateRecipe = () => {
               <FormGroup>
                 <Label>Recipe Title</Label>
                 <Input type="text" value={recipeName} required onChange={(e) => setRecipeName(e.target.value)}/>
-              </FormGroup>
+              </FormGroup>              
               <FormGroup>
                 <Label>Recipe Description</Label>
                 <Input type="text" value={recipeDesc} required onChange={(e) => setRecipeDesc(e.target.value)}/>
+              </FormGroup>
+              <FormGroup>
+                <Label>Cover Image</Label>
+                <Input type="file" onChange={(e) => setRecipeCover(e.target.files[0])}/>
               </FormGroup>
 
               {/* displaying ingredients */}
