@@ -13,11 +13,11 @@ body{
   color: #212529;
   font-family: 'Syne', sans-serif;
 }
-p{
-  font-size: 18px;
+p, a, li{
+  font-size: 20px;
 }
-a{
-  font-size: 18px;
+h1, h2, h3, h4, h5, h6{
+  font-weight: bold;
 }
 
 .content{
@@ -107,4 +107,11 @@ a{
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.recipe{
+  padding: 20px;
+  .cover-image{
+    max-width: 100%;
+  }
 }

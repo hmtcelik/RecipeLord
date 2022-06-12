@@ -30,16 +30,18 @@ const RecipeList = (props) => {
 
     return (  
       <>
-      <div className="recipe-list">
           {recipes.map(recipe => (
             <Row key={recipe.id}>
               <div className="recipe">
-                <div className="recipe wrapper">
-                  <div className="recipe title">
-                    { recipe.title }
+                <div className="wrapper">
+                  <div className="title">
+                    <h2>{ recipe.title }</h2>
                   </div>
-                  <div className="recipe description">
-                    { recipe.description }
+                  {recipe.cover && // if have a cover
+                      <img src={recipe.cover} className="cover-image" />
+                  }
+                  <div className="description">
+                    <p>{ recipe.description }</p>
                   </div>
 
                   <br />
@@ -73,7 +75,6 @@ const RecipeList = (props) => {
                   </div>
                 </div>
                 }
-      </div>
       </>
     );
 }

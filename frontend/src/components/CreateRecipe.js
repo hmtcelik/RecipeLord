@@ -52,7 +52,6 @@ const CreateRecipe = () => {
         .then((res) => {
           // after creating recipe,  posting ingredients
           recipe_id = (res.data.id); // getting recipe_id from post request response data
-          console.log(res.data);
           if (ingredientsList.length >= 1)
             ingredientCreation();
           else{
