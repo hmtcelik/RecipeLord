@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "react-spring": "^9.4.5",
     "reactstrap": "^8.10.1",
+    "twit": "^2.2.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

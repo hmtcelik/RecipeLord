@@ -9,6 +9,8 @@ import Register from "./components/authentication/Register.js";
 import Login from "./components/authentication/Login.js";
 import SearchResults from "./components/SearchResults.js";
 
+import Twit from "./components/Twit.js";
+
 import './main.scss';
 
 export const App = () => {
@@ -23,6 +25,8 @@ export const App = () => {
             <Route exact path='/create' element={<CreateRecipe />} />
             <Route exact path='/update/:id' element={<UpdateRecipe />} />
             <Route exact path='/results/:item' element={<SearchResults />} />               
+            
+            <Route exact path='/twit' element={<Twit />} /> {/* just testing twitter api */}
           </Routes>
         </div>
       </BrowserRouter>
